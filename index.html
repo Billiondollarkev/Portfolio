@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chengelo Kevin Kanyama — Full-Stack & Cloud Developer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #080c14;
+            --card-bg: #0f172a;
+            --card-border: rgba(255, 255, 255, 0.07);
+            --card-border-hover: rgba(56, 189, 248, 0.35);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.12);
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-sans);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Glow Background Effect */
+        .bg-glow {
+            position: fixed;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 10%;
+            background: rgba(8, 12, 20, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid var(--card-border);
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 10% 4rem 10%;
+            max-width: 900px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #fff 30%, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1.8rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--text-main);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: var(--accent-glow);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 10%;
+        }
+
+        .section-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* Tech Skills Pills */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-pill {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 0.55rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            transition: all 0.2s;
+        }
+
+        .skill-pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        /* Project Cards Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--card-border-hover);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.3px;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .tech-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: rgba(56, 189, 248, 0.08);
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 10%;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 5rem 6% 3rem 6%; }
+            .section { padding: 3rem 6%; }
+            nav { padding: 1.2rem 6%; }
+            footer { padding: 2rem 6%; flex-direction: column; gap: 1rem; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <nav>
+        <a href="#" class="logo">ckk.dev</a>
+        <div class="nav-links">
+            <a href="#about">Skills</a>
+            <a href="#projects">Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="status-badge">
+            <div class="pulse-dot"></div>
+            Available for Contract & Freelance Projects
+        </div>
+        <h1><span>Chengelo Kevin Kanyama</span></h1>
+        <p>Full-Stack Developer & Systems Specialist. Building fast, responsive web products, cloud infrastructure, and database automation pipelines.</p>
+        <div class="btn-group">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="mailto:kevinkanyama65@gmail.com" class="btn btn-outline">Get In Touch</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Technical Capabilities</h2>
+        </div>
+        <div class="skills-grid">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">JavaScript (ES6+)</span>
+            <span class="skill-pill">HTML5 / CSS3</span>
+            <span class="skill-pill">AWS Lambda</span>
+            <span class="skill-pill">API Gateway</span>
+            <span class="skill-pill">DynamoDB</span>
+            <span class="skill-pill">REST APIs</span>
+            <span class="skill-pill">CRM Architecture</span>
+            <span class="skill-pill">PayFast / Yoco Integration</span>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Featured Work</h2>
+        </div>
+        <div class="projects-grid">
+
+            <div class="project-card">
+                <div>
+                    <h3>Commercial E-Commerce Platform</h3>
+                    <p>Designed a multi-tiered package showcase with clean service selection and local payment processing integration (PayFast & Yoco Instant EFT).</p>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">HTML5/CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">PayFast API</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <h3>Serverless Cloud Portal</h3>
+                    <p>Built an asynchronous incident logging engine powered by serverless cloud compute routines and instant database persistence.</p>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">AWS Lambda</span>
+                    <span class="tech-tag">API Gateway</span>
+                    <span class="tech-tag">DynamoDB</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <h3>Data Operations Pipeline</h3>
+                    <p>Engineered automated field validation rules across relational databases, keeping 100% data fidelity across conversion stages.</p>
+                </div>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Data Systems</span>
+                    <span class="tech-tag">Automation</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Let's Connect</h2>
+            <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 500px;">
+                Looking for a custom business website, web application, or cloud system integration? Let's talk.
+            </p>
+        </div>
+        <div class="btn-group">
+            <a href="mailto:kevinkanyama65@gmail.com" class="btn btn-primary">Send Email</a>
+            <a href="https://github.com/Billiondollarkev" target="_blank" class="btn btn-outline">GitHub Profile</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Kevin Kanyama</p>
+        <p>Pretoria, South Africa</p>
+    </footer>
+
+</body>
+</html>
